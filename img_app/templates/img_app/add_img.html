@@ -1,0 +1,17 @@
+{% extends "img_app/basic.html"%}
+
+{% block title %}Добавление изображений{% endblock %}
+
+
+{% block content %}
+    <div>
+        <a href="{% url 'img_app:index' %}">Назад к списку</a>
+    </div>
+    <h1>Новое изображение</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+{% endblock %}

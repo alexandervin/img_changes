@@ -1,0 +1,15 @@
+{% extends "img_app/basic.html"%}
+
+{% block content %}
+    <h1>Список изображений</h1>
+    {% if data %}
+        {% for dd in data %}
+        {% endfor %}
+    {% endif%}
+
+
+    <div>
+        <a href="{% url 'img_app:add_img' %}">Добавить изображение</a>
+    </div>
+
+{% endblock %}
