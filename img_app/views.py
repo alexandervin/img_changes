@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, FormView
 
-from .forms import ImageForm
+from .forms import ImageFormAdd
 from .models import Image
 
 def index(request):
@@ -13,7 +13,7 @@ def index(request):
 
 class CreateImgView(FormView):
     model = Image
-    form_class = ImageForm
+    form_class = ImageFormAdd
     template_name = 'img_app/add_img.html'
 
     def form_valid(self, form):
@@ -29,6 +29,9 @@ class CreateImgView(FormView):
 
 
 
+def resize_img(request):
+    return render(request, 'img_app/resize_img.html')
+
 # def add_img(request):
 #     if request.method == 'POST':
 #         form = ImageForm(request.POST)
@@ -39,9 +42,3 @@ class CreateImgView(FormView):
 #             form = ImageForm()
 #     context = {'form': form}
 #     return render(request, 'img_app/add_img.html', context=context)
-
-
-
-
-def resize_img(request):
-    return render(request, 'img_app/resize_img.html')
