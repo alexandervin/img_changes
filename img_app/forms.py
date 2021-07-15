@@ -15,7 +15,7 @@ class ImageFormAdd(forms.ModelForm):
             errors = {'image_url': ValidationError(
                 'Заполните только одно поле', code='wrong_1')}
             raise ValidationError(errors)
-        if self.cleaned_data['image_url'].strip() and self.cleaned_data['image_loc'].strip() == '':
+        if image_url.strip() == '' and image_loc == None:
             raise ValidationError('Введите данные в одно из полей')
 
     class Meta:
