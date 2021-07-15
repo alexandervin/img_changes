@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, FormView
 
-
-
 from .forms import ImageFormAdd
 from .models import ImageModel
 

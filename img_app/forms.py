@@ -21,3 +21,7 @@ class ImageFormAdd(forms.ModelForm):
     class Meta:
         model = ImageModel
         fields = ('image_url', 'image_loc')
+
+
+class ImageUpdateForm():
+    pass
