@@ -1,16 +1,9 @@
 from django.db import models
 
-from PIL import Image
-import requests
-#import sys
-
-
-
-
 class ImageModel(models.Model):
     title = models.CharField(max_length=50)
     image_url = models.URLField(blank=True, verbose_name='Ссылка')
-    #image_file = models.ImageField(blank=True, upload_to='images/')
+    # image_file = models.ImageField(blank=True, upload_to='images/')
     image_loc = models.ImageField(blank=True, upload_to='images/', verbose_name='Файл')
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
 
@@ -27,18 +20,8 @@ class ImageModel(models.Model):
             self.image_loc = self.image_url
         super(ImageModel, self).save(*args, **kwargs)
 
-
     def __str__(self):
         return self.title
-
-
-
-
-
-
-
-
-
 
     # def get_remote_image(self):
     #     if self.image_url and not self.image_file:
@@ -62,4 +45,3 @@ class ImageModel(models.Model):
     #         print("Unable to open image")
     #         sys.exit(1)
     #     return img.save(self.image_file, 'jpeg')
-
