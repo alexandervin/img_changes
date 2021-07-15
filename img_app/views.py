@@ -42,3 +42,5 @@ def resize_img(request):
 #             form = ImageForm()
 #     context = {'form': form}
 #     return render(request, 'img_app/add_img.html', context=context)
+
+https://fixmypc.ru/post/zagruzka-izobrazhenii-i-drugikh-failov-v-django-3-cherez-formy-i-modeli/
