@@ -5,6 +5,7 @@ __pycache__/
 
 .idea/
 .тестовое/
+media/
 
 # C extensions
 *.so

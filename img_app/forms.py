@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Image
+from .models import ImageModel
 
 
 class ImageFormAdd(forms.ModelForm):
@@ -19,5 +19,5 @@ class ImageFormAdd(forms.ModelForm):
             raise ValidationError('Введите данные в одно из полей')
 
     class Meta:
-        model = Image
+        model = ImageModel
         fields = ('image_url', 'image_loc')

@@ -2,17 +2,19 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, FormView
 
+#from PIL import Image
+
 from .forms import ImageFormAdd
-from .models import Image
+from .models import ImageModel
 
 def index(request):
-    data = Image.objects.all()
+    data = ImageModel.objects.all()
     context = {'data': data}
     return render(request, 'img_app/index.html', context)
 
 
 class CreateImgView(FormView):
-    model = Image
+    model = ImageModel
     form_class = ImageFormAdd
     template_name = 'img_app/add_img.html'
 
