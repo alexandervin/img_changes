@@ -2,11 +2,9 @@
 
 {% block content %}
     <h1>Список изображений</h1>
-    {% if data %}
-        {% for dd in data %}
-        {% endfor %}
-    {% endif%}
-
+    {% for dd in data %}
+        {{ dd.image_loc }} </p>
+    {% endfor %}
 
     <div>
         <a href="{% url 'img_app:add_img' %}">Добавить изображение</a>
