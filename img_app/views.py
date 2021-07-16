@@ -6,12 +6,14 @@ from .forms import ImageFormAdd
 from .models import ImageModel
 
 def index(request):
+    """ Контроллер отображения добавленных изображений на главной странице """
     data = ImageModel.objects.all()
     context = {'data': data}
     return render(request, 'img_app/index.html', context)
 
 
-class CreateImgView(FormView,):
+class CreateImgView(FormView):
+    """ Контроллер добавления изображений """
     model = ImageModel
     form_class = ImageFormAdd
     template_name = 'img_app/add_img.html'
@@ -30,6 +32,7 @@ class CreateImgView(FormView,):
 
 
 def resize_img(request):
+    """ Контроллер изменения размеров изображений """
     return render(request, 'img_app/resize_img.html')
 
 # def add_img(request):

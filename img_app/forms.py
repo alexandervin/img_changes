@@ -1,11 +1,11 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import ImageModel
+from .models import ImageModel, ImageUpdate
 
 
 class ImageFormAdd(forms.ModelForm):
-    """Форма добавления изображений"""
+    """ Форма добавления изображений """
 
     def clean(self):
         super().clean()
@@ -23,5 +23,9 @@ class ImageFormAdd(forms.ModelForm):
         fields = ('image_url', 'image_loc')
 
 
-class ImageUpdateForm():
-    pass
+class ImageUpdateForm(forms.ModelForm):
+    """ Форма изменения размеров изображений """
+    class Meta:
+        model = ImageUpdate
+        fields = ('width_origin', 'height_origin')
+

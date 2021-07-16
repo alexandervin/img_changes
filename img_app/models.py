@@ -1,14 +1,15 @@
 from django.db import models
 
+
 class ImageModel(models.Model):
+    """ Модель добавления изображения """
     title = models.CharField(max_length=50)
     image_url = models.URLField(blank=True, verbose_name='Ссылка')
     # image_file = models.ImageField(blank=True, upload_to='images/')
     image_loc = models.ImageField(blank=True, upload_to='images/', verbose_name='Файл')
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
-
-    # width_origin = models.PositiveIntegerField(verbose_name='Ширина')
-    # height_origin = models.PositiveIntegerField(verbose_name='Высота')
+    width_origin = models.PositiveIntegerField(verbose_name='Ширина')
+    height_origin = models.PositiveIntegerField(verbose_name='Высота')
 
     @property
     def photo_url(self):
@@ -22,6 +23,13 @@ class ImageModel(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ImageUpdate(models.Model):
+    """ Модель изменеия размеров изображения """
+    width = models.PositiveIntegerField(blank=True, verbose_name='Ширина')
+    height = models.PositiveIntegerField(blank=True, verbose_name='Высота')
+    parent = models.ForeignKey(ImageModel, related_name='modified', on_delete=models.CASCADE)
 
     # def get_remote_image(self):
     #     if self.image_url and not self.image_file:
