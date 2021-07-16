@@ -7,10 +7,14 @@
     <div>
         <a href="{% url 'img_app:index' %}">Назад к списку</a>
     </div>
-    <h1>Новое изображение</h1>
+    <h1>линк изображения</h1>
     <div>
         <div>
-            <h3>todo: добавить форму редактирования изображения. (ширина:....№ Высота:.....№ Отправить-reload and render/)</h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Отправить">
+            </form>
         </div>
 
         <div>
@@ -20,7 +24,6 @@
         <img src="{{ dd.image_loc }}">
     {% endfor %}
         </div>
-
 
     </div>
 {% endblock %}

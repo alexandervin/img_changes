@@ -1,6 +1,5 @@
 from django import forms
 from django.core.exceptions import ValidationError
-
 from .models import ImageModel, ImageUpdate
 
 
@@ -25,7 +24,7 @@ class ImageFormAdd(forms.ModelForm):
 
 class ImageUpdateForm(forms.ModelForm):
     """ Форма изменения размеров изображений """
+
     class Meta:
         model = ImageUpdate
-        fields = ('width_origin', 'height_origin')
-
+        fields = ('width', 'height')
