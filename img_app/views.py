@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.generic import FormView, CreateView
 
 from .forms import ImageFormAdd
-from .models import ImageModel
+from .models import ImageModel, ImageUpdate
 
 
 def index(request):
@@ -31,30 +31,32 @@ class CreateImgView(FormView):
         return self.object
 
     def get_success_url(self):
-        return reverse('img_app:resize_img')
-        # return HttpResponseRedirect(reverse('img_app:resize_img',
-        #                                     kwargs={'imagemodel_id': bbf.cleaned_data['rubric'].pk}))
+        return reverse('img_app:resize_img', kwargs={'imagemodel_id': self.object.cleaned_data['imagemodel'].pk})
 
-def resize_img(request):
-    """ Контроллер изменения размеров изображений """
-    return render(request, 'img_app/resize_img.html')
 
-# def edit(request, pk):
-    # bb = Bb.objects.get(pk=pk)
-    # if request.method == 'POST’:
-        # bbf = BbForm(request.POST, instance=bb)
-        # if bbf.is_valid():
-            #if bbf.has_changed():
-                # bbf.save()
-                # return HttpResponseRedirect(reverse(’bboard:by_rubric*,
-                    # kwargs={’rubric_id’: bbf.cleaned_data[’rubric’].pk}))
-    # else:
-        # context = {’form': bbf}
-        # return render(request, 'bboard/bb_form.html’, context)
-    # else:
-        # bbf = BbForm(instance=bb)
-        # context = {'form': bbf}
-        # return render(request, 'bboard/bb_form.html', context)
+# def resize_img(request):
+#     """ Контроллер изменения размеров изображений """
+#     data = ImageModel.objects.all()
+#     context = {'data': data}
+#     return render(request, 'img_app/resize_img.html', context)
+
+def resize_img(request, pk):
+    """ Контроллер класс изменения размеров изображений """
+    imgm = ImageModel.objects.get(pk=pk)
+    if request.method == 'POST':
+        imgf = ImageFormAdd(request.POST, instance=imgm)
+        if imgf.is_valid():
+            imgf.save()
+            return HttpResponseRedirect(reverse('img_app:resize_img',
+                                                kwargs={'imagemodel_id': imgf.cleaned_data['imagemodel'].pk}))
+        else:
+            context = {'form': imgf}
+            return render(request, 'img_app/resize_img.html', context)
+    else:
+        imgf = ImageFormAdd(instance=imgm)
+        context = {'form': imgf}
+        return render(request, 'img_app/resize_img.html', context)
+
 
 
 
