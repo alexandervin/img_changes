@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import FormView, CreateView
 
-from .forms import ImageFormAdd
+from .forms import ImageFormAdd, ImageUpdateForm
 from .models import ImageModel, ImageUpdate
 
 
@@ -31,7 +31,7 @@ class CreateImgView(FormView):
         return self.object
 
     def get_success_url(self):
-        return reverse('img_app:resize_img', kwargs={'imagemodel_id': self.object.cleaned_data['imagemodel'].pk})
+        return reverse('img_app:resize_img', kwargs={'imagemodel_id': self.object.cleaned_data['imagemodel_id'].pk})
 
 
 # def resize_img(request):
@@ -44,16 +44,16 @@ def resize_img(request, pk):
     """ Контроллер класс изменения размеров изображений """
     imgm = ImageModel.objects.get(pk=pk)
     if request.method == 'POST':
-        imgf = ImageFormAdd(request.POST, instance=imgm)
+        imgf = ImageUpdateForm(request.POST, instance=imgm)
         if imgf.is_valid():
             imgf.save()
             return HttpResponseRedirect(reverse('img_app:resize_img',
-                                                kwargs={'imagemodel_id': imgf.cleaned_data['imagemodel'].pk}))
+                                                kwargs={'imagemodel_id': imgf.cleaned_data['imagemodel_id'].pk}))
         else:
             context = {'form': imgf}
             return render(request, 'img_app/resize_img.html', context)
     else:
-        imgf = ImageFormAdd(instance=imgm)
+        imgf = ImageUpdateForm(instance=imgm)
         context = {'form': imgf}
         return render(request, 'img_app/resize_img.html', context)
 
