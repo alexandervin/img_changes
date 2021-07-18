@@ -3,12 +3,12 @@ from django.db import models
 
 class ImageModel(models.Model):
     """ Модель добавления изображения """
-    title = models.CharField(max_length=50)
+    image_id = models.IntegerField(primary_key=True)
     image_url = models.URLField(blank=True, verbose_name='Ссылка')
     image_loc = models.ImageField(blank=True, upload_to='images/', verbose_name='Файл')
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
+    #created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
     width_origin = models.PositiveIntegerField(verbose_name='Ширина', default=200)
-    height_origin = models.PositiveIntegerField(verbose_name='Высота',default=200)
+    height_origin = models.PositiveIntegerField(verbose_name='Высота', default=200)
 
     @property
     def photo_url(self):
