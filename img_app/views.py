@@ -35,7 +35,7 @@ class CreateImgView(FormView):
         return self.object
 
     def get_success_url(self):
-        return reverse('img_app:resize_img', kwargs={'image_id': self.object.cleaned_data['image_id'].pk})
+        return reverse('img_app:resize_img', kwargs={'images': self.object.image_loc.pk})
 
 
 def resize_img(request, pk):
@@ -46,7 +46,7 @@ def resize_img(request, pk):
         if imgf.is_valid():
             imgf.save()
             return HttpResponseRedirect(reverse('img_app:resize_img',
-                                                kwargs={'imagemodel_id': imgf.cleaned_data['imagemodel_id'].pk}))
+                                                kwargs={'image': imgf.cleaned_data['image_id'].pk}))
         else:
             context = {'form': imgf}
             return render(request, 'img_app/resize_img.html', context)
