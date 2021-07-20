@@ -23,32 +23,44 @@ class CreateImgView(FormView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        context['images'] = ImageModel.objects.all()
+        context['image'] = ImageModel.objects.all()
         return context
 
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
 
     def get_form(self, form_class=None):
         self.object = super().get_form(form_class)
         return self.object
 
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def save(self):
+        pass
+
     def get_success_url(self):
-        return reverse('img_app:resize_img', kwargs={'images': self.object.image_loc.pk})
+        return reverse('img_app:resize_img', kwargs={'pk': self.object.cleaned_data['image_id']})
 
 
 def resize_img(request, pk):
     """ Контроллер класс изменения размеров изображений """
     imgm = ImageModel.objects.get(pk=pk)
     if request.method == 'POST':
-        imgf = ImageUpdateForm(request.POST, instance=imgm)
+        imgf = ImageUpdateForm(request.POST, instance=imgm) #request.FILES)
         if imgf.is_valid():
+            # ImageUpdate.objects.create(**imgf.cleaned_data)
             imgf.save()
+            return redirect('resize_img')
+
             return HttpResponseRedirect(reverse('img_app:resize_img',
                                                 kwargs={'image': imgf.cleaned_data['image_id'].pk}))
         else:
             context = {'form': imgf}
+
+
+
+
+
             return render(request, 'img_app/resize_img.html', context)
     else:
         imgf = ImageUpdateForm(instance=imgm)

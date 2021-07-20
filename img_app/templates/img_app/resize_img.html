@@ -10,12 +10,13 @@
     <h1>линк изображения</h1>
     <div>
         <div>
-            <form method="post" enctype="multipart/form-data">
+            <form action= "{% url 'resize_img' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit" value="Отправить">
             </form>
         </div>
+
 
         <div>
           <h2>todo: добавить вывод введенного img в оригинальном размере.</h2>

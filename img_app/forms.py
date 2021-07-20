@@ -28,3 +28,11 @@ class ImageUpdateForm(forms.ModelForm):
     class Meta:
         model = ImageUpdate
         fields = ('width', 'height')
+
+    def clean_height(self):
+        """пользовательская валидация"""
+        #height = self.cleaned_data['height']
+        #if len(height) > 5
+            #raise ValidationError('Слишком большой размер')
+        #return heigth
+        pass
