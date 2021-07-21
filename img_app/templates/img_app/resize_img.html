@@ -20,7 +20,7 @@
 
         <div>
           <h2>todo: добавить вывод введенного img в оригинальном размере.</h2>
-            {% for dd in data %}
+            {% for dd in form %}
                 <p><a href="#">{{ dd.image_loc }}</a></p>
                 <img src="{{ dd.image_loc }}">
             {% endfor %}
